@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/admin.css">
+    <title>PlutonMC - Panel de Admin</title>
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="brand">
+                <h2>⚙️ Admin Panel</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">⬅️ Volver a la Web</a></li>
+                    <li><a href="#" class="active">🛒 Registro de Compras</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>Historial de Transacciones</h1>
+                <button onclick="limpiarHistorial()" class="btn-danger">Limpiar Registros</button>
+            </header>
+
+            <div class="table-container">
+                <table id="compras-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario MC</th>
+                            <th>Rango</th>
+                            <th>Método</th>
+                            <th>ID Transacción</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-body">
+                        </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>

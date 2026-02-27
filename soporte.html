@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/soporte.css">
+    <title>PlutonMC - Soporte</title>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="brand">
+                <img src="/imagenes/logo_pluton.png" alt="icon-udemy" class="logo">
+                <span class="name">PlutonMC</span>
+            </div>
+        </div>
+        <div class="right">
+            <a href="#" class="icons-header">
+                <img src="/icons/chat.svg" alt="chat">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/question.svg" alt="question">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/notification.svg" alt="notification">
+            </a>
+          <img src="/imagenes/logo_pluton.png" alt="img-user" class="user">  
+
+        </div>
+    </header>
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" class="search">
+                        <img src="/icons/search.svg" alt="">
+                        <span>Buscar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <img src="/icons/home.svg" alt="">
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="rangos.html">
+                        <img src="/icons/money.svg" alt="">
+                        <span>Rangos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html">
+                        <img src="/imagenes/login.webp" alt="">
+                        <span>Login/Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="selected">
+                        <img src="/icons/megaphone.svg" alt="">
+                        <span>Soporte</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+<main id="main">
+        <section class="support-container">
+            <div class="support-header">
+                <h1>Centro de Soporte PlutonMC</h1>
+                <p>¿Tienes algún problema, duda o sugerencia? Nuestro equipo de staff está aquí para ayudarte en lo que necesites.</p>
+            </div>
+
+            <div class="support-grid">
+                <div class="support-card discord-card">
+                    <div class="discord-content">
+                        <h2>Soporte Rápido vía Discord</h2>
+                        <p>La forma más rápida y efectiva de obtener asistencia es a través de nuestra comunidad en Discord. Nuestro equipo de moderadores y administradores está activo para resolver tus inquietudes al instante.</p>
+                        
+                        <ul class="discord-benefits">
+                            <li>💬 <strong>Atención en tiempo real:</strong> Habla directamente con el Staff.</li>
+                            <li>🎫 <strong>Sistema de Tickets:</strong> Abre un canal privado para tratar temas sensibles (reportes, compras, bugs).</li>
+                            <li>📢 <strong>Anuncios:</strong> Entérate antes que nadie de las actualizaciones del servidor.</li>
+                        </ul>
+
+                        <a href="https://discord.gg/5PxQp3KHpT" target="_blank" class="btn-discord">
+                            Únete a nuestro Discord
+                        </a>
+                    </div>
+                </div>
+
+                <div class="support-card email-card">
+                    <h2>Contáctanos por Correo</h2>
+                    <p>Si prefieres una atención más formal o no tienes acceso a Discord, déjanos un mensaje y te responderemos a tu correo electrónico.</p>
+                    
+                    <form id="support-form" action="https://formsubmit.co/contact.plutonmc@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="¡Nuevo Ticket de Soporte - PlutonMC!">
+                        <input type="hidden" name="_captcha" value="false">
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre o Nickname de Minecraft:</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Ej. Steve_Gamer">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Tu Correo Electrónico:</label>
+                            <input type="email" id="email" name="email" required placeholder="tu-correo@ejemplo.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categoria">Categoría del problema:</label>
+                            <select id="categoria" name="categoria" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="Problemas de Conexión/Lag">Problemas de Conexión/Lag</option>
+                                <option value="Dudas sobre Rangos y Tienda">Dudas sobre Rangos y Tienda</option>
+                                <option value="Reportar Jugador o Bug">Reportar Jugador o Bug</option>
+                                <option value="Apelación de Baneo (Unban)">Apelación de Baneo (Unban)</option>
+                                <option value="Otro">Otro asunto</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Describe tu problema detalladamente:</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Explica cómo podemos ayudarte..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">Enviar Mensaje a Soporte</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="js/soporte.js"></script>
+</body>
+</html>

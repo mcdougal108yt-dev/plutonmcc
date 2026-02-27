@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>PlutonMC - Home</title>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="brand">
+                <img src="/imagenes/logo_pluton.png" alt="icon-udemy" class="logo">
+                <span class="name">PlutonMC</span>
+            </div>
+        </div>
+        <div class="right">
+            <a href="#" class="icons-header">
+                <img src="/icons/chat.svg" alt="chat">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/question.svg" alt="question">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/notification.svg" alt="notification">
+            </a>
+          <img src="/imagenes/logo_pluton.png" alt="img-user" class="user">  
+
+        </div>
+    </header>
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" class="search">
+                        <img src="/icons/search.svg" alt="">
+                        <span>Buscar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="selected">
+                        <img src="/icons/home.svg" alt="">
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="rangos.html">
+                        <img src="/icons/money.svg" alt="">
+                        <span>Rangos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html">
+                        <img src="/imagenes/login.webp" alt="">
+                        <span>Login/Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="soporte.html">
+                        <img src="/icons/megaphone.svg" alt="">
+                        <span>Soporte</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+<main id="main">
+        <section class="about-section">
+            <h1>¡Bienvenidos a PlutonMC!</h1>
+            <p>
+                Somos una comunidad apasionada por Minecraft, creada por y para jugadores. 
+                Nuestro objetivo es ofrecerte la mejor experiencia de juego, con una latencia óptima, 
+                sistemas innovadores y un equipo de staff siempre dispuesto a ayudarte.
+            </p>
+            <p>
+                PlutonMC es un <strong>servidor nuevo y totalmente NO-PREMIUM</strong>. 
+                Esto significa que las puertas están abiertas para todos: no importa si tienes el juego 
+                comprado o usas un launcher alternativo, ¡aquí tienes un lugar para ti y tus amigos!
+            </p>
+
+            <h2>Nuestras Modalidades</h2>
+            <div class="modes-grid">
+                <div class="mode-card">
+                    <h3>🌲 Survival</h3>
+                    <p>Sobrevive en un mundo lleno de peligros. Reclama tus tierras, comercia con otros jugadores y construye tu imperio desde cero.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>⚔️ KitPvP</h3>
+                    <p>¡Acción pura! Elige tu kit favorito, sal a la arena y demuestra tus habilidades de combate contra otros jugadores.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>🏰 Factions</h3>
+                    <p>Crea tu clan, construye tu base inexpugnable, alíate con otros y domina los territorios enemigos en esta guerra de clanes.</p>
+                </div>
+                <div class="mode-card">
+                    <h3>☁️ Skyblock</h3>
+                    <p>Empieza en una pequeña isla flotante con recursos limitados. Completa retos, expande tu isla y conviértete en el más rico del servidor.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="feedback-section">
+            <h2>¿Qué te parece PlutonMC?</h2>
+            <p>Tu opinión y experiencia con nuestro servicio al cliente nos ayuda a mejorar el servidor.</p>
+            
+            <form id="feedback-form" action="https://formsubmit.co/contact.plutonmc@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="¡Nuevo Feedback de PlutonMC!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+
+                <div class="form-group">
+                    <label for="nombre">Tu Nombre (o Nickname):</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ej. Steve_Gamer">
+                </div>
+
+                <div class="form-group">
+                    <label for="calificacion">Calificación del servidor y staff (1 al 10):</label>
+                    <input type="number" id="calificacion" name="calificacion" min="1" max="10" required placeholder="10">
+                </div>
+
+                <div class="form-group">
+                    <label for="razon">Cuéntanos el porqué de tu reseña:</label>
+                    <textarea id="razon" name="razon" rows="4" required placeholder="El servidor tiene poco lag y el staff me ayudó con un problema..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Feedback</button>
+            </form>
+
+            <div class="reviews-container">
+                <h3>Comentarios Recientes</h3>
+                <div id="reviews-list">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <strong>Notch</strong>
+                            <span class="rating">⭐ 10/10</span>
+                        </div>
+                        <p class="review-body">¡Me encanta el servidor! El modo Factions es muy divertido y no hay lag.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

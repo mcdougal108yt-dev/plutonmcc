@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/rangos.css">
+    <title>PlutonMC - Rangos</title>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="brand">
+                <img src="/imagenes/logo_pluton.png" alt="icon-udemy" class="logo">
+                <span class="name">PlutonMC</span>
+            </div>
+        </div>
+        <div class="right">
+            <a href="#" class="icons-header">
+                <img src="/icons/chat.svg" alt="chat">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/question.svg" alt="question">
+            </a>
+            <a href="#" class="icons-header">
+                <img src="/icons/notification.svg" alt="notification">
+            </a>
+          <img src="/imagenes/logo_pluton.png" alt="img-user" class="user">  
+
+        </div>
+    </header>
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" class="search">
+                        <img src="/icons/search.svg" alt="">
+                        <span>Buscar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <img src="/icons/home.svg" alt="">
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="selected">
+                        <img src="/icons/money.svg" alt="">
+                        <span>Rangos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html">
+                        <img src="/imagenes/login.webp" alt="">
+                        <span>Login/Register</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="soporte.html">
+                        <img src="/icons/megaphone.svg" alt="">
+                        <span>Soporte</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+<main id="main">
+    <section class="rangos-header">
+        <h1>Tienda Oficial PlutonMC</h1>
+        <p>Apoya al servidor y obtén beneficios exclusivos globales. Todos los precios están en USD.</p>
+    </section>
+
+    <section class="rangos-container">
+        <div class="rango-card" data-id="rank_rookie">
+            <h2 style="color: #8c8c8c;">ROOKIE</h2>
+            <p class="precio-desde">Desde <strong>$0.26 USD</strong></p>
+            <ul class="precios-lista">
+                <li>1 Semana: $0.26</li>
+                <li>1 Mes: $0.52</li>
+                <li>1 Año: $1.16</li>
+                <li>Permanente: $1.55</li>
+            </ul>
+            <button class="btn-comprar" onclick="abrirModal('rank_rookie', 'ROOKIE')">Comprar Ahora</button>
+        </div>
+
+        <div class="rango-card" data-id="rank_hunter">
+            <h2 style="color: #00b84b;">HUNTER</h2>
+            <p class="precio-desde">Desde <strong>$0.39 USD</strong></p>
+            <ul class="precios-lista">
+                <li>1 Semana: $0.39</li>
+                <li>1 Mes: $0.90</li>
+                <li>1 Año: $1.94</li>
+                <li>Permanente: $2.58</li>
+            </ul>
+            <button class="btn-comprar" onclick="abrirModal('rank_hunter', 'HUNTER')">Comprar Ahora</button>
+        </div>
+
+        <div class="rango-card" data-id="rank_slayer">
+            <h2 style="color: #2155ff;">SLAYER</h2>
+            <p class="precio-desde">Desde <strong>$0.65 USD</strong></p>
+            <ul class="precios-lista">
+                <li>1 Semana: $0.65</li>
+                <li>1 Mes: $1.29</li>
+                <li>1 Año: $2.84</li>
+                <li>Permanente: $3.87</li>
+            </ul>
+            <button class="btn-comprar" onclick="abrirModal('rank_slayer', 'SLAYER')">Comprar Ahora</button>
+        </div>
+
+        <div class="rango-card" data-id="rank_warlord">
+            <h2 style="color: #a332ff;">WARLORD</h2>
+            <p class="precio-desde">Desde <strong>$1.03 USD</strong></p>
+            <ul class="precios-lista">
+                <li>1 Semana: $1.03</li>
+                <li>1 Mes: $2.19</li>
+                <li>1 Año: $4.91</li>
+                <li>Permanente: $6.45</li>
+            </ul>
+            <button class="btn-comprar" onclick="abrirModal('rank_warlord', 'WARLORD')">Comprar Ahora</button>
+        </div>
+
+        <div class="rango-card" data-id="rank_overlord">
+            <h2 style="color: #ff3232;">OVERLORD</h2>
+            <p class="precio-desde">Desde <strong>$1.55 USD</strong></p>
+            <ul class="precios-lista">
+                <li>1 Semana: $1.55</li>
+                <li>1 Mes: $3.61</li>
+                <li>1 Año: $7.75</li>
+                <li>Permanente: $10.33</li>
+            </ul>
+            <button class="btn-comprar" onclick="abrirModal('rank_overlord', 'OVERLORD')">Comprar Ahora</button>
+        </div>
+    </section>
+
+    <div id="modal-compra" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="cerrarModal()">×</button>
+            
+            <div id="step-1" class="modal-step active">
+                <h3 id="modal-title-step1">Seleccionar Duración</h3>
+                <div class="duracion-grid" id="container-duraciones">
+                    </div>
+            </div>
+
+            <div id="step-2" class="modal-step">
+                <h3><button class="btn-back" onclick="volverPaso(1)">← Volver</button> Datos del Comprador</h3>
+                <div class="resumen-final-info">
+                    <p><strong id="resumen-rango-2"></strong> <span id="resumen-precio-2" class="resumen-precio"></span></p>
+                </div>
+                <form onsubmit="irPaso3(event)">
+                    <div class="input-group-dark"><label>Usuario de Minecraft *</label><input type="text" id="mc-user" required></div>
+                    <div class="input-group-dark"><label>Usuario de Discord *</label><input type="text" id="discord-user" required></div>
+                    <div class="input-group-dark"><label>Correo Electrónico *</label><input type="email" id="email-user" required></div>
+                    <button type="submit" class="btn-continuar">Continuar al Pago</button>
+                </form>
+            </div>
+
+            <div id="step-3" class="modal-step">
+                <h3><button class="btn-back" onclick="volverPaso(2)">← Volver</button> Método de Pago</h3>
+                <div class="resumen-final-info" id="resumen-p3"></div>
+                <div class="metodos-pago">
+                    <div class="metodo-card" onclick="irPaso4('PayPal')"><span>💳</span><div><h4>PayPal</h4><p>Pago global</p></div></div>
+                    <div class="metodo-card" onclick="irPasoCriptoSeleccion()"><span>₿</span><div><h4>Cripto</h4><p>BTC, LTC, USDT</p></div></div>
+                    <div class="metodo-card" onclick="irPaso4('Nequi')"><span>📱</span><div><h4>Nequi</h4><p>Colombia</p></div></div>
+                </div>
+            </div>
+
+            <div id="step-cripto-sel" class="modal-step">
+                <h3><button class="btn-back" onclick="volverPaso(3)">← Volver</button> Seleccionar Criptomoneda</h3>
+                <div class="metodos-pago">
+                    <div class="metodo-card" onclick="irPaso4('Bitcoin (BTC)')"><span>🧡</span><h4>Bitcoin (BTC)</h4></div>
+                    <div class="metodo-card" onclick="irPaso4('Litecoin (LTC)')"><span>💙</span><h4>Litecoin (LTC)</h4></div>
+                    <div class="metodo-card" onclick="irPaso4('USDT (Tether)')"><span>💚</span><h4>USDT (Tether)</h4></div>
+                </div>
+            </div>
+
+            <div id="step-4" class="modal-step">
+                <h3><button class="btn-back" id="back-to-last">← Volver</button> Pago con <span id="nombre-metodo"></span></h3>
+                <div class="resumen-final-info" id="resumen-final-detalles"></div>
+
+                <div id="info-pago-especifica">
+                    </div>
+
+<div class="comprobante-pago-form">
+    <h4>Comprobante de Pago</h4>
+    <form onsubmit="finalizarTodo(event)">
+        <div class="input-group-dark">
+            <label>ID de Transacción / Referencia *</label>
+            <input type="text" id="id-transaccion" required> 
+        </div>
+        <button type="submit" class="btn-continuar">Ya realicé el pago</button>
+    </form>
+</div>
+            </div>
+        </div>
+    </div>
+</main>
+    <script src="js/rangos.js"></script>
+</body>
+</html>
