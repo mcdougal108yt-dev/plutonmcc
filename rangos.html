@@ -184,7 +184,9 @@
 
             <div id="step-4" class="modal-step">
                 <h3><button class="btn-back" id="back-to-last">← Volver</button> Pago con <span id="nombre-metodo"></span></h3>
-                <div class="resumen-final-info" id="resumen-final-detalles"></div>
+                <div class="resumen-final-info" id="resumen-final-detalles">         
+                </div>
+
 
                 <div id="info-pago-especifica">
                     </div>
@@ -194,9 +196,15 @@
     <form onsubmit="finalizarTodo(event)">
         <div class="input-group-dark">
             <label>ID de Transacción / Referencia *</label>
-            <input type="text" id="id-transaccion" required> 
+            <input type="text" id="id-transaccion" required>
         </div>
-        <button type="submit" class="btn-continuar">Ya realicé el pago</button>
+        
+        <div class="input-group-dark">
+            <label>Captura del Pago (Opcional pero recomendado)</label>
+            <input type="file" id="comprobante-img" accept="image/png, image/jpeg, image/jpg" style="padding: 0.5rem; cursor: pointer;">
+        </div>
+        
+        <button type="submit" id="btn-finalizar" class="btn-continuar">Ya realicé el pago</button>
     </form>
 </div>
             </div>
