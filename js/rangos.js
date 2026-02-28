@@ -125,67 +125,100 @@ function cerrarModal() {
 }
 
 // Función independiente para enviar la notificación a Discord
-async function enviarADiscord(datos) {
-const webhookURL = "https://discord.com/api/webhooks/1476797401573494894/sn1vpk9PYq8l2kSvGyT_MF1-BuOa7nugbhQoRww2wV788LGR49maTbU9EX2T7hJJulFb"; // Tu URL original
+// 1. Nueva Función para enviar a Discord con Imágenes
+async function enviarADiscord(datos, archivoImagen) {
+    const webhookURL = "https://discord.com/api/webhooks/1476797401573494894/sn1vpk9PYq8l2kSvGyT_MF1-BuOa7nugbhQoRww2wV788LGR49maTbU9EX2T7hJJulFb";
 
+    const embed = {
+        title: "🛒 ¡Nueva Intención de Compra!",
+        color: 5814783,
+        fields: [
+            { name: "Usuario MC", value: datos.mc || "No especificado", inline: true },
+            { name: "Discord", value: datos.discord || "No especificado", inline: true },
+            { name: "Rango", value: `${datos.rango} (${datos.duracion})`, inline: false },
+            { name: "Precio", value: datos.precio || "0", inline: true },
+            { name: "Método", value: datos.metodo || "No especificado", inline: true },
+            { name: "ID Transacción", value: `\`${datos.transaccion}\``, inline: false }
+        ],
+        footer: { text: "Revisa el panel de admin para aprobar" },
+        timestamp: new Date().toISOString()
+    };
+
+    // Creamos un paquete de datos (FormData) para poder subir archivos
+    const formData = new FormData();
+
+    // Si el usuario subió una imagen, la preparamos para el Embed y la adjuntamos
+    if (archivoImagen) {
+        // Le decimos al Embed que use el archivo adjunto
+        embed.image = { url: `attachment://${archivoImagen.name}` };
+        // Agregamos el archivo real al paquete
+        formData.append('file', archivoImagen, archivoImagen.name);
+    }
+
+    // Armamos el mensaje final
     const mensaje = {
         username: "PlutonMC Store",
         avatar_url: "https://media.discordapp.net/attachments/1449540177851715837/1476797574827606022/plutoncm-removebg-preview_1_1.png",
-        content: "@everyone @here 🚨 **¡Atención Staff! Una nueva intención de compra ha sido registrada.**", // <-- AQUÍ SE AGREGA LA MENCIÓN
-        embeds: [{
-            title: "🛒 ¡Nueva Intención de Compra!",
-            color: 5814783,
-            fields: [
-                { name: "Usuario MC", value: datos.mc || "No especificado", inline: true },
-                { name: "Discord", value: datos.discord || "No especificado", inline: true },
-                { name: "Rango", value: `${datos.rango} (${datos.duracion})`, inline: false },
-                { name: "Precio", value: datos.precio || "0", inline: true },
-                { name: "Método", value: datos.metodo || "No especificado", inline: true },
-                { name: "ID Transacción", value: `\`${datos.transaccion}\``, inline: false }
-            ],
-            footer: { text: "Revisa el panel de admin para aprobar" },
-            timestamp: new Date().toISOString() // Formato correcto para la hora en Discord
-        }]
+        content: "@everyone @here 🚨 **¡Atención Staff! Una nueva intención de compra ha sido registrada.**",
+        embeds: [embed]
     };
 
-    // Hacemos la petición POST al Webhook
-    await fetch(webhookURL, {
+    // Convertimos el mensaje en texto y lo agregamos al paquete
+    formData.append('payload_json', JSON.stringify(mensaje));
+
+    // Enviamos el paquete completo a Discord (Nota: fetch detecta solo el formData)
+    return fetch(webhookURL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mensaje)
+        body: formData
     });
 }
 
-// Función que se llama al hacer clic en el botón de finalizar
+// 2. Función Finalizar actualizada
 async function finalizarTodo(e) { 
     if(e) e.preventDefault();
 
-    // Buscamos el input donde el usuario escribe el ID de la transacción
-    // NOTA: Asegúrate de que en tu HTML de pago tengas un input con id="id-transaccion"
-    const inputTransaccion = document.getElementById('id-transaccion');
-    const transaccionVal = inputTransaccion && inputTransaccion.value.trim() !== "" 
-        ? inputTransaccion.value 
-        : "Sin ID de transacción";
+    // Bloqueamos el botón para que no den doble clic mientras sube la foto
+    const btnSubmit = document.getElementById('btn-finalizar');
+    if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "⏳ Enviando comprobante...";
+    }
 
-    // Preparamos los datos extrayéndolos del objeto global 'compra'
-    const datosCompra = {
+    // Obtenemos el texto y el archivo
+    const inputID = document.getElementById('id-transaccion');
+    const valorID = inputID ? inputID.value.trim() : "No detectado";
+
+    const inputImagen = document.getElementById('comprobante-img');
+    const archivoImagen = inputImagen && inputImagen.files.length > 0 ? inputImagen.files[0] : null;
+
+    const datosFinales = {
         mc: compra.mc,
         discord: compra.dc,
         rango: compra.nombre,
         duracion: compra.duracion,
         precio: compra.precio,
         metodo: compra.metodo,
-        transaccion: transaccionVal
+        transaccion: valorID
     };
 
     try {
-        // Ejecutamos la función de Discord y esperamos a que termine
-        await enviarADiscord(datosCompra); 
+        await enviarADiscord(datosFinales, archivoImagen);
         
-        alert("¡Recibido! Notificamos al staff por Discord.");
-        cerrarModal(); // Cerramos la ventana modal
+        alert("¡Gracias! Tu comprobante ha sido enviado. El staff lo revisará pronto.");
+        
+        // Limpiamos todo
+        if(inputID) inputID.value = "";
+        if(inputImagen) inputImagen.value = ""; 
+        cerrarModal();
+        
     } catch (err) {
-        console.error("Error al enviar el webhook:", err);
-        alert("Hubo un error al enviar tu comprobante. Por favor, avísanos en el servidor de Discord.");
+        console.error("Error al enviar:", err);
+        alert("Hubo un problema al enviar la notificación. Contacta a un admin.");
+    } finally {
+        // Desbloqueamos el botón pasara lo que pasara
+        if (btnSubmit) {
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "Ya realicé el pago";
+        }
     }
 }
