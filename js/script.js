@@ -28,7 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
     loadReviews();
 });
 
-// --- LÓGICA DE LAS RESEÑAS (GUARDADO LOCAL) ---
+// ... (tu código del menú y el modal de bienvenida se quedan igual) ...
+
+// --- LÓGICA DE LAS RESEÑAS (MOCKAPI) ---
+const API_URL = 'https://69a25d27be843d692bd148c1.mockapi.io/feedback';
 const feedbackForm = document.getElementById('feedback-form');
 const reviewsList = document.getElementById('reviews-list');
 
@@ -43,58 +46,80 @@ function renderReview(nombre, calificacion, razon) {
         </div>
         <p class="review-body">${razon}</p>
     `;
-    reviewsList.prepend(newReview);
+    reviewsList.prepend(newReview); // prepend pone el comentario más nuevo arriba
 }
 
-// Función para cargar reseñas guardadas en el navegador
-function loadReviews() {
-    const savedReviews = JSON.parse(localStorage.getItem('plutonmc_reviews')) || [];
-    
-    // Si hay reseñas guardadas, las mostramos
-    if (savedReviews.length > 0) {
-        // Limpiamos el HTML inicial para no duplicar la de Notch si ya hay datos
-        reviewsList.innerHTML = ''; 
-        // Renderizamos las guardadas
-        savedReviews.forEach(review => renderReview(review.nombre, review.calificacion, review.razon));
+// Función para cargar reseñas guardadas en la base de datos (MockAPI)
+async function loadReviews() {
+    try {
+        const response = await fetch(API_URL);
+        const savedReviews = await response.json();
+        
+        // Si hay reseñas guardadas en la API, las mostramos
+        if (savedReviews.length > 0) {
+            reviewsList.innerHTML = ''; // Limpiamos el HTML para quitar la de Notch
+            
+            // Renderizamos todas las reseñas de la base de datos
+            savedReviews.forEach(review => renderReview(review.nombre, review.calificacion, review.razon));
+        }
+    } catch (error) {
+        console.error("Error al cargar las reseñas de la base de datos:", error);
     }
 }
 
-feedbackForm.addEventListener('submit', function(e) {
+// Enviar una nueva reseña a la base de datos
+feedbackForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const nombre = document.getElementById('nombre').value;
     const calificacion = document.getElementById('calificacion').value;
     const razon = document.getElementById('razon').value;
+    const btnSubmit = feedbackForm.querySelector('.btn-submit');
 
-    // Mostramos la nueva reseña inmediatamente
-    renderReview(nombre, calificacion, razon);
+    // Cambiamos el texto del botón mientras se envía para que el usuario no dé doble clic
+    btnSubmit.textContent = 'Enviando...';
+    btnSubmit.disabled = true;
 
-    // Guardamos la reseña en la memoria del navegador (localStorage)
-    const savedReviews = JSON.parse(localStorage.getItem('plutonmc_reviews')) || [];
-    
-    // Agregamos la reseña por defecto de Notch si es la primera vez que guarda alguien
-    if (savedReviews.length === 0) {
-        savedReviews.push({nombre: 'Notch', calificacion: '10', razon: '¡Me encanta el servidor! El modo Factions es muy divertido y no hay lag.'});
-    }
-    
-    // Agregamos la nueva
-    savedReviews.push({nombre, calificacion, razon});
-    localStorage.setItem('plutonmc_reviews', JSON.stringify(savedReviews));
+    // Preparamos los datos a enviar a MockAPI
+    const newFeedback = {
+        nombre: nombre,
+        calificacion: calificacion,
+        razon: razon
+    };
 
-    // Enviamos el correo a FormSubmit
-    const formData = new FormData(feedbackForm);
-    fetch(feedbackForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
+    try {
+        // Hacemos el POST a MockAPI
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newFeedback)
+        });
+
         if(response.ok) {
-            alert('¡Gracias por tu opinión! Tu comentario ha sido guardado.');
+            // Si la base de datos la guardó con éxito
+            const savedReview = await response.json();
+            
+            // Si la lista solo tenía a Notch, la limpiamos antes de agregar la primera real
+            if (reviewsList.innerHTML.includes('Notch')) {
+                reviewsList.innerHTML = '';
+            }
+
+            // Mostramos la reseña en la página
+            renderReview(savedReview.nombre, savedReview.calificacion, savedReview.razon);
+            
+            alert('¡Gracias por tu opinión! Tu comentario ya es visible para todos.');
             feedbackForm.reset(); 
         } else {
-            alert('Error en el correo, pero tu reseña se guardó en la página.');
+            alert('Hubo un error al guardar tu reseña en la base de datos.');
         }
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+        console.error("Error:", error);
+        alert('Error de conexión. Inténtalo más tarde.');
+    } finally {
+        // Restauramos el botón
+        btnSubmit.textContent = 'Enviar Feedback';
+        btnSubmit.disabled = false;
+    }
 });
